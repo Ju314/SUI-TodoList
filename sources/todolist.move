@@ -29,6 +29,9 @@ module todolist::todolist {
     }
 
     public fun delete_list(list: TodoList) {
-        object::delete(list.id);
+      let TodoList { id, items } = list;
+      vector::destroy_empty(items);
+      object::delete(id);
     }
+
 }
