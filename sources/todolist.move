@@ -18,4 +18,17 @@ module todolist::todolist {
 
         transfer::transfer(list, tx_context::sender(ctx));
     }
+
+    public fun add_item(list: &mut TodoList, item: String) {
+        vector::push_back(&mut list.items, item);
+    }
+
+    public fun remove_item(list: &mut TodoList, index: u64) {
+        assert!(index < vector::length(&list.items), 1);
+        vector::remove(&mut list.items, index);
+    }
+
+    public fun delete_list(list: TodoList) {
+        object::delete(list.id);
+    }
 }
